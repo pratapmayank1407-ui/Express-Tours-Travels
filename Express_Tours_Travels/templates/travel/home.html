@@ -1,0 +1,47 @@
+{% extends 'travel/base.html' %}
+{% block title %}Express Tours & Travels | Trips from Lucknow{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container hero-content">
+    <span class="eyebrow">TRAVEL MADE PERSONAL</span>
+    <h1>Go farther.<br><em>Come back happier.</em></h1>
+    <p>Holiday packages, family escapes, pilgrimage journeys and custom trips — planned around your time, comfort and budget.</p>
+    <div class="hero-actions"><a class="btn btn-light" href="{% url 'packages' %}">Explore Tours</a><a class="btn btn-ghost-light" href="{{ whatsapp_primary }}?text=Hello%20Express%20Tours%20%26%20Travels,%20I%20need%20a%20travel%20quote." target="_blank">WhatsApp Us</a></div>
+    <div class="hero-trust"><span>✓ Transparent planning</span><span>✓ Custom itineraries</span><span>✓ Local support</span></div>
+  </div>
+</section>
+
+<section class="strip"><div class="container strip-grid"><div><strong>10+</strong><span>Travel styles</span></div><div><strong>1:1</strong><span>Trip planning</span></div><div><strong>24/7</strong><span>WhatsApp support</span></div><div><strong>Lucknow</strong><span>Based & reachable</span></div></div></section>
+
+<section class="section"><div class="container">
+  <div class="section-head"><div><span class="eyebrow dark">CURATED FOR YOU</span><h2>Popular destinations</h2></div><a class="text-link" href="{% url 'packages' %}">View all tours →</a></div>
+  <div class="destination-grid">
+    {% for destination in destinations %}
+      <article class="destination-card" style="--bg: url('{{ destination.image_url }}')"><div class="destination-overlay"><span>Explore</span><h3>{{ destination.name }}</h3><p>{{ destination.short_description }}</p></div></article>
+    {% empty %}
+      <div class="empty-state">Add destinations from the admin panel to show them here.</div>
+    {% endfor %}
+  </div>
+</div></section>
+
+<section class="section section-soft"><div class="container">
+  <div class="section-head"><div><span class="eyebrow dark">READY-TO-BOOK IDEAS</span><h2>Featured tour packages</h2></div><a class="text-link" href="{% url 'packages' %}">See all packages →</a></div>
+  <div class="package-grid">
+    {% for package in packages %}
+    <article class="package-card">
+      <div class="package-image" style="--bg: url('{{ package.image_url }}')"><span class="pill">{{ package.duration }}</span></div>
+      <div class="package-body"><span class="muted">{{ package.destination.name }} · {{ package.get_category_display }}</span><h3>{{ package.title }}</h3><p>{{ package.short_description }}</p><div class="package-meta"><strong>{% if package.price_from %}From ₹{{ package.price_from|floatformat:0 }}{% else %}Get a quote{% endif %}</strong><a class="arrow-link" href="{{ package.get_absolute_url }}">View trip →</a></div></div>
+    </article>
+    {% empty %}<div class="empty-state">Add packages from the admin panel to show them here.</div>{% endfor %}
+  </div>
+</div></section>
+
+<section class="section"><div class="container split-section"><div><span class="eyebrow dark">WHY EXPRESS</span><h2>One travel partner, fewer things to worry about.</h2><p class="lead">Tell us where you want to go and how you like to travel. We help shape the route, stays, transport and sightseeing into one practical plan.</p><div class="feature-list"><div><span>01</span><div><h4>Custom planning</h4><p>Build a trip around your dates, travelers and comfort level.</p></div></div><div><span>02</span><div><h4>Flexible options</h4><p>Compare package ideas, private trips and custom itineraries.</p></div></div><div><span>03</span><div><h4>Human support</h4><p>Talk to a real travel team before and during your journey.</p></div></div></div></div><div class="quote-card"><div class="quote-mark">“</div><p>We don't just book a destination. We help you plan the whole experience.</p><span>Express Tours & Travels · Lucknow</span></div></div></section>
+
+<section class="section cta-section"><div class="container cta-card"><div><span class="eyebrow">YOUR NEXT TRIP</span><h2>Have a destination in mind?</h2><p>Send us your dates and requirements. We'll help you turn them into a practical trip plan.</p></div><a class="btn btn-light" href="{% url 'book' %}">Get a Free Quote</a></div></section>
+
+{% if reviews %}<section class="section"><div class="container"><div class="section-head"><div><span class="eyebrow dark">TRAVELLER NOTES</span><h2>What guests say</h2></div></div><div class="review-grid">{% for review in reviews %}<article class="review-card"><div class="stars">{% for i in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}</div><p>“{{ review.text }}”</p><strong>{{ review.customer_name }}</strong></article>{% endfor %}</div></div></section>{% endif %}
+
+<section class="section section-soft"><div class="container"><div class="section-head"><div><span class="eyebrow dark">LET'S TALK</span><h2>Ready when you are.</h2></div></div><div class="contact-band"><div><strong>81159 22455</strong><span>Primary travel line</span></div><div><strong>84710 75977</strong><span>Alternate travel line</span></div><div><strong>{{ email }}</strong><span>Email us anytime</span></div><a class="btn btn-primary" href="{% url 'contact' %}">Contact Us</a></div></div></section>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends 'travel/base.html' %}
+{% block title %}Plan My Trip | Express Tours & Travels{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container"><span class="eyebrow">CUSTOM TRAVEL PLANNING</span><h1>Tell us what your ideal trip looks like.</h1><p>Share your destination, dates and requirements. We'll shape a trip around them.</p></div></section>
+<section class="section section-soft"><div class="container narrow"><form class="form-card" method="post">{% csrf_token %}{% include 'travel/form_fields.html' with form=form %}<button class="btn btn-primary" type="submit">Request My Trip</button></form><p class="form-note">Prefer WhatsApp? <a href="{{ whatsapp_primary }}?text=Hello%20Express%20Tours%20%26%20Travels,%20I%20want%20a%20custom%20trip." target="_blank">Message us directly.</a></p></div></section>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'travel/base.html' %}
+{% block title %}Tour Packages | Express Tours & Travels{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container"><span class="eyebrow">TOURS & GETAWAYS</span><h1>Find a trip that fits you.</h1><p>Browse sample packages, then customize the route, stay, transport and pace with our team.</p></div></section>
+<section class="section"><div class="container">
+<form class="filter-bar" method="get"><input type="search" name="q" value="{{ query }}" placeholder="Search destination or package…"><select name="category"><option value="">All types</option><option value="family" {% if category == 'family' %}selected{% endif %}>Family</option><option value="honeymoon" {% if category == 'honeymoon' %}selected{% endif %}>Honeymoon</option><option value="adventure" {% if category == 'adventure' %}selected{% endif %}>Adventure</option><option value="pilgrimage" {% if category == 'pilgrimage' %}selected{% endif %}>Pilgrimage</option><option value="custom" {% if category == 'custom' %}selected{% endif %}>Custom</option></select><button class="btn btn-primary" type="submit">Search</button></form>
+<div class="package-grid">{% for package in packages %}<article class="package-card"><div class="package-image" style="--bg: url('{{ package.image_url }}')"><span class="pill">{{ package.duration }}</span></div><div class="package-body"><span class="muted">{{ package.destination.name }} · {{ package.get_category_display }}</span><h3>{{ package.title }}</h3><p>{{ package.short_description }}</p><div class="package-meta"><strong>{% if package.price_from %}From ₹{{ package.price_from|floatformat:0 }}{% else %}Custom quote{% endif %}</strong><a class="arrow-link" href="{{ package.get_absolute_url }}">View details →</a></div></div></article>{% empty %}<div class="empty-state">No packages matched. Try another search or ask us for a custom itinerary.</div>{% endfor %}</div>
+</div></section>
+{% endblock %}

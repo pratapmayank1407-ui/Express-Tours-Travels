@@ -1,0 +1,25 @@
+services:
+  - type: web
+    runtime: python
+    name: express-tours-travels
+    plan: free
+    buildCommand: pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --no-input
+    startCommand: gunicorn config.wsgi:application
+    healthCheckPath: /
+    envVars:
+      - key: SECRET_KEY
+        sync: false
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: "express-tours-travels.onrender.com"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: express-tours-db
+          property: connectionString
+      - key: CONTACT_RECEIVER_EMAIL
+        value: "pratap.mayank1407@gmail.com"
+
+databases:
+  - name: express-tours-db
+    plan: free

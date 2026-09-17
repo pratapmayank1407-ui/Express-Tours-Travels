@@ -1,0 +1,6 @@
+{% extends 'travel/base.html' %}
+{% block title %}Travel Gallery | Express Tours & Travels{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container"><span class="eyebrow">TRAVEL GALLERY</span><h1>Places worth talking about.</h1><p>Use the admin panel to upload your own travel photos and turn this into your real business gallery.</p></div></section>
+<section class="section"><div class="container photo-grid">{% for image in images %}<figure><img src="{{ image.display_url }}" alt="{{ image.alt_text|default:image.title }}"><figcaption>{{ image.title }}</figcaption></figure>{% empty %}<div class="empty-state">No gallery images yet. Add them from the admin panel.</div>{% endfor %}</div></section>
+{% endblock %}
