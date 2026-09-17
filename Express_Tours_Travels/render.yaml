@@ -3,10 +3,13 @@ services:
     runtime: python
     name: express-tours-travels
     plan: free
+    rootDir: Express_Tours_Travels
     buildCommand: pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --no-input
     startCommand: gunicorn config.wsgi:application
     healthCheckPath: /
     envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
       - key: SECRET_KEY
         sync: false
       - key: DEBUG
